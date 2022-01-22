@@ -1,3 +1,4 @@
+.DS_Store
 node_modules
 
 .cache
@@ -6,3 +7,6 @@ node_modules
 
 public/build
 api/_build
+
+.env
+
