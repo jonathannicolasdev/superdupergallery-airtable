@@ -15,12 +15,23 @@ export default function Index() {
   return (
     <div>
       <h1>Super Duper Gallery</h1>
-      <ul>
+      <hr />
+
+      <div>
         {artworks.map((artwork: any) => {
-          return <li key={artwork.id}>{artwork.fields.title}</li>
+          const { title, images } = artwork.fields
+
+          return (
+            <div key={artwork.id}>
+              <h1>{title}</h1>
+              <img src={images[0]?.thumbnails?.large?.url} alt={title} />
+            </div>
+          )
         })}
-      </ul>
-      <pre>{JSON.stringify(artworks)}</pre>
+      </div>
+
+      <hr />
+      <pre>{JSON.stringify(artworks, null, 2)}</pre>
     </div>
   )
 }
