@@ -3,7 +3,7 @@ import { airtableFetch } from '~/lib/airtable'
 
 export async function loader() {
   const artworks = await airtableFetch(
-    '/Artworks?maxRecords=3&view=All%20Artworks'
+    '/Artworks?maxRecords=10&view=All%20Artworks'
   )
 
   return json(artworks?.data?.records)
@@ -14,7 +14,7 @@ export default function Index() {
 
   return (
     <div>
-      <h1>Super Duper Gallery</h1>
+      <h1>Artworks</h1>
       <hr />
 
       <div>
