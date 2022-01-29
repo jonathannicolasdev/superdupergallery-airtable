@@ -1,7 +1,7 @@
 import { json, useLoaderData } from 'remix'
 
 import { airtableFetch } from '~/lib/airtable'
-import { combineStringsToObjects } from '~/utils/combine'
+import { combineArtistData } from '~/utils/combine'
 
 export async function loader() {
   const response = await airtableFetch(
@@ -10,7 +10,7 @@ export async function loader() {
 
   const exhibitions = response?.data?.records
 
-  const arrayOfObjects = combineStringsToObjects(
+  const arrayOfObjects = combineArtistData(
     exhibitions[0]?.fields?.artistNames,
     exhibitions[0]?.fields?.artistUsernames
   )

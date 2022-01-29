@@ -1,6 +1,8 @@
-export const combineStringsToObjects = (array1: String[], array2: String[]) => {
-  return {
-    array1,
-    array2,
-  }
-}
+export const combineArtistData = (
+  artistNames: String[],
+  artistUsernames: String[]
+) =>
+  artistNames.map((name, index) => ({
+    name: name,
+    username: artistUsernames[index],
+  }))
