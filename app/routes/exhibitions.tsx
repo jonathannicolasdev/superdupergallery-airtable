@@ -19,15 +19,26 @@ export default function Index() {
 
       <div>
         {exhibitions?.map((exhibition: any) => {
-          const { name, date, artists, artworks } = exhibition.fields
+          const { name, date, artistNames, artistUsernames, artworkNames } =
+            exhibition.fields
 
           return (
             <div key={exhibition.id}>
               <h1>{name}</h1>
               <time>{date}</time>
               <ul>
-                {artists?.map((artist: any) => {
-                  return <li>{artist}</li>
+                {artistNames?.map((name: any) => {
+                  return <li>{name}</li>
+                })}
+              </ul>
+              <ul>
+                {artistUsernames?.map((username: any) => {
+                  return <li>{username}</li>
+                })}
+              </ul>
+              <ul>
+                {artworkNames?.map((artwork: any) => {
+                  return <li>{artwork}</li>
                 })}
               </ul>
             </div>
