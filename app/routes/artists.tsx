@@ -19,11 +19,11 @@ export default function Index() {
 
       <div>
         {artists.map((artist: any) => {
-          const { name } = artist.fields
+          const { name, username } = artist.fields
 
           return (
             <div key={artist.id}>
-              <h1>{name}</h1>
+              <h1>{name}</h1> ({username})
             </div>
           )
         })}
