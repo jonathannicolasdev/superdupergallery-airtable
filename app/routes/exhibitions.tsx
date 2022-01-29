@@ -1,4 +1,4 @@
-import { json, useLoaderData } from 'remix'
+import { json, Link, useLoaderData } from 'remix'
 
 import { airtableFetch } from '~/lib/airtable'
 import { combineArtistData } from '~/utils/combine'
@@ -7,17 +7,20 @@ export async function loader() {
   const response = await airtableFetch(
     '/Exhibitions?maxRecords=10&view=All%20Exhibitions'
   )
-
   const exhibitions = response?.data?.records
 
-  const arrayOfObjects = combineArtistData(
-    exhibitions[0]?.fields?.artistNames,
-    exhibitions[0]?.fields?.artistUsernames
-  )
+  const newExhibitions = exhibitions.map((exhibition: any) => ({
+    id: exhibition.id,
+    createdTime: exhibition.createdTime,
+    name: exhibition?.fields?.name,
+    date: exhibition?.fields?.date,
+    artists: combineArtistData(
+      exhibition?.fields?.artistNames,
+      exhibition?.fields?.artistUsernames
+    ),
+  }))
 
-  console.log(arrayOfObjects)
-
-  return json(exhibitions)
+  return json(newExhibitions)
 }
 
 export default function Index() {
@@ -30,26 +33,19 @@ export default function Index() {
 
       <div>
         {exhibitions?.map((exhibition: any) => {
-          const { name, date, artistNames, artistUsernames, artworkNames } =
-            exhibition.fields
-
           return (
             <div key={exhibition.id}>
-              <h1>{name}</h1>
-              <time>{date}</time>
+              <h1>{exhibition.name}</h1>
+              <time>{exhibition.date}</time>
               <ul>
-                {artistNames?.map((name: any) => {
-                  return <li>{name}</li>
-                })}
-              </ul>
-              <ul>
-                {artistUsernames?.map((username: any) => {
-                  return <li>{username}</li>
-                })}
-              </ul>
-              <ul>
-                {artworkNames?.map((artwork: any) => {
-                  return <li>{artwork}</li>
+                {exhibition.artists?.map((artist: any) => {
+                  return (
+                    <li>
+                      <Link to={`/artists/${artist.username}`}>
+                        {artist.name}
+                      </Link>
+                    </li>
+                  )
                 })}
               </ul>
             </div>
