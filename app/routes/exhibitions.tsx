@@ -1,7 +1,7 @@
 import { json, Link, useLoaderData } from 'remix'
 
 import { airtableFetch } from '~/lib/airtable'
-import { combineArtistData } from '~/utils/combine'
+import { combineArtists, combineArtworks } from '~/utils/combine'
 
 export async function loader() {
   const response = await airtableFetch(
@@ -14,9 +14,14 @@ export async function loader() {
     createdTime: exhibition.createdTime,
     name: exhibition?.fields?.name,
     date: exhibition?.fields?.date,
-    artists: combineArtistData(
+    artists: combineArtists(
       exhibition?.fields?.artistNames,
       exhibition?.fields?.artistUsernames
+    ),
+    artworks: combineArtworks(
+      exhibition?.fields?.artworkTitles,
+      exhibition?.fields?.artworkSlugs,
+      exhibition?.fields?.artworkImages
     ),
   }))
 
@@ -43,6 +48,22 @@ export default function Index() {
                     <li>
                       <Link to={`/artists/${artist.username}`}>
                         {artist.name}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+              <ul>
+                {exhibition.artworks?.map((artwork: any) => {
+                  return (
+                    <li>
+                      <Link to={`/artworks/${artwork?.slug}`}>
+                        <span>{artwork.title}</span>
+                        <img
+                          height={100}
+                          src={artwork.image}
+                          alt={artwork.title}
+                        />
                       </Link>
                     </li>
                   )
