@@ -8,6 +8,8 @@ import {
 } from 'remix'
 import type { MetaFunction } from 'remix'
 
+import { Navigation } from '~/components'
+
 export const meta: MetaFunction = () => {
   return { title: 'Super Duper Gallery' }
 }
@@ -21,8 +23,11 @@ export default function App() {
         <Meta />
         <Links />
       </head>
+
       <body>
+        <Navigation />
         <Outlet />
+
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}

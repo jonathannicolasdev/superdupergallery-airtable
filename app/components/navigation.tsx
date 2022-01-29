@@ -3,7 +3,7 @@ import { Link } from 'remix'
 
 interface NavigationProps {}
 
-const Navigation: FunctionComponent<NavigationProps> = () => {
+export const Navigation: FunctionComponent<NavigationProps> = () => {
   const navigationLinks = [
     { to: '/', text: 'Home' },
     { to: '/about', text: 'About' },
