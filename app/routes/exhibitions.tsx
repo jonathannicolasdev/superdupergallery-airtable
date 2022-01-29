@@ -28,7 +28,7 @@ export async function loader() {
   return json(newExhibitions)
 }
 
-export default function Index() {
+export default function Exhibitions() {
   const exhibitions = useLoaderData()
 
   return (

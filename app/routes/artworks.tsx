@@ -9,7 +9,7 @@ export async function loader() {
   return json(artworks?.data?.records)
 }
 
-export default function Index() {
+export default function Artworks() {
   const artworks = useLoaderData()
 
   return (
