@@ -8,10 +8,13 @@ import {
 } from 'remix'
 import type { MetaFunction } from 'remix'
 
-import { Navigation } from '~/components'
+import { Layout } from '~/components'
 
 export const meta: MetaFunction = () => {
-  return { title: 'Super Duper Gallery' }
+  return {
+    title: 'Super Duper Gallery',
+    description: 'Amazing gallery in QC, Philippines',
+  }
 }
 
 export default function App() {
@@ -25,8 +28,9 @@ export default function App() {
       </head>
 
       <body>
-        <Navigation />
-        <Outlet />
+        <Layout>
+          <Outlet />
+        </Layout>
 
         <ScrollRestoration />
         <Scripts />
