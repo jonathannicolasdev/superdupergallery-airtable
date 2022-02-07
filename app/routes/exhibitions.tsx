@@ -45,7 +45,7 @@ export default function Exhibitions() {
               <ul>
                 {exhibition.artists?.map((artist: any) => {
                   return (
-                    <li>
+                    <li key={artist.username}>
                       <Link to={`/artists/${artist.username}`}>
                         {artist.name}
                       </Link>
@@ -56,8 +56,8 @@ export default function Exhibitions() {
               <ul>
                 {exhibition.artworks?.map((artwork: any) => {
                   return (
-                    <li>
-                      <Link to={`/artworks/${artwork?.slug}`}>
+                    <li key={artwork.slug}>
+                      <Link to={`/artworks/${artwork.slug}`}>
                         <span>{artwork.title}</span>
                         <img
                           height={100}

@@ -29,9 +29,6 @@ export default function Index() {
           )
         })}
       </div>
-
-      <hr />
-      <pre>{JSON.stringify(artworks, null, 2)}</pre>
     </div>
   )
 }
