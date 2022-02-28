@@ -1,5 +1,6 @@
 import {
   Links,
+  LinksFunction,
   LiveReload,
   Meta,
   Outlet,
@@ -15,6 +16,24 @@ export const meta: MetaFunction = () => {
     title: 'Super Duper Gallery',
     description: 'Amazing gallery in QC, Philippines',
   }
+}
+
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.googleapis.com',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      // crossOrigin: true,
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Titillium+Web:wght@900&display=swap',
+    },
+  ]
 }
 
 export default function App() {

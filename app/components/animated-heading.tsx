@@ -3,6 +3,7 @@ import { FunctionComponent } from 'react'
 import { styled } from '~/stitches'
 
 const HeadingHome = styled('h1', {
+  userSelect: 'none',
   textTransform: 'uppercase',
   fontFamily: '"Titillium Web", sans-serif',
   lineHeight: '80%',
