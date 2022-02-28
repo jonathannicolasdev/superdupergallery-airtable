@@ -46,7 +46,7 @@ export const Section = styled('section', {
 })
 
 export const CoverImage = styled('img', {
-  backgroundImage: 'url("/images/cover.jpeg")',
+  backgroundImage: 'url("/images/homepage-cover.jpeg")',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundSize: 'cover',

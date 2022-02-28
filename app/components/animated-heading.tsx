@@ -8,7 +8,7 @@ const HeadingHome = styled('h1', {
   lineHeight: '80%',
   fontWeight: 900,
   letterSpacing: 2,
-  backgroundImage: 'url("/images/hero-text-background.jpeg")',
+  backgroundImage: 'url("/images/homepage-hero-text-background.jpeg")',
   color: 'transparent',
   backgroundClip: 'text',
   fontSize: '4.5rem',
