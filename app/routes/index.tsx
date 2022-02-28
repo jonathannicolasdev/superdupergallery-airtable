@@ -10,6 +10,7 @@ import {
   CoverImage,
   MapAnchor,
   MapImage,
+  FeaturedArtworks,
 } from '~/components'
 
 export const loader: LoaderFunction = async () => {
@@ -17,7 +18,18 @@ export const loader: LoaderFunction = async () => {
     '/Artworks?maxRecords=3&view=All%20Artworks'
   )
 
-  return json(artworks?.data?.records)
+  const transformedArtworks = artworks?.data?.records.map((artwork: any) => {
+    const { title, images } = artwork.fields
+
+    return {
+      title: title,
+      url: images[0]?.thumbnails?.large?.url,
+    }
+  })
+
+  console.log(transformedArtworks)
+
+  return json(transformedArtworks)
 }
 
 export default function HomePage() {
@@ -83,18 +95,7 @@ export default function HomePage() {
           </Section>
         </Article>
 
-        <div>
-          {artworks.map((artwork: any) => {
-            const { title, images } = artwork.fields
-
-            return (
-              <div key={artwork.id}>
-                <h1>{title}</h1>
-                <img src={images[0]?.thumbnails?.large?.url} alt={title} />
-              </div>
-            )
-          })}
-        </div>
+        <FeaturedArtworks artworks={artworks} />
 
         <Article>
           <Section>

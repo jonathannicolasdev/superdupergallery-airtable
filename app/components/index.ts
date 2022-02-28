@@ -1,6 +1,7 @@
 export * from './animated-heading'
 export * from './center'
 export * from './content'
+export * from './featured-artworks'
 export * from './footer'
 export * from './header'
 export * from './hero'
