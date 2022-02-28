@@ -1,5 +1,5 @@
 import { json, useLoaderData } from 'remix'
-import { airtableFetch } from '~/lib/airtable'
+import { airtableFetch } from '~/lib'
 import { ArtistContent } from '~/types'
 import { Hero, AnimatedHeading, ArtistList, Center } from '~/components'
 

@@ -1,5 +1,5 @@
 import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
-import { airtableFetch } from '~/lib/airtable'
+import { airtableFetch } from '~/lib'
 import {
   Hero,
   AnimatedHeadingHome,

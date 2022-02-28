@@ -1,6 +1,6 @@
 import { json, Link, useLoaderData } from 'remix'
 
-import { airtableFetch } from '~/lib/airtable'
+import { airtableFetch } from '~/lib'
 import { combineArtists, combineArtworks } from '~/utils/combine'
 
 export async function loader() {

@@ -1,5 +1,5 @@
 import { json, useLoaderData } from 'remix'
-import { airtableFetch } from '~/lib/airtable'
+import { airtableFetch } from '~/lib'
 
 export async function loader() {
   const artworks = await airtableFetch(
