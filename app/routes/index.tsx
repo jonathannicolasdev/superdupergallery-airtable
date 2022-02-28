@@ -1,7 +1,7 @@
-import { json, useLoaderData } from 'remix'
+import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import { airtableFetch } from '~/lib/airtable'
 
-export async function loader() {
+export const loader: LoaderFunction = async () => {
   const artworks = await airtableFetch(
     '/Artworks?maxRecords=3&view=All%20Artworks'
   )
