@@ -1,12 +1,29 @@
-import { json, useLoaderData } from 'remix'
-import { airtableFetch } from '~/lib'
+import { json, LoaderFunction, useLoaderData } from 'remix'
+import { gql } from '@urql/core'
+import { graphcmsClient } from '~/lib'
 
-export async function loader() {
-  const artworks = await airtableFetch(
-    '/Artworks?maxRecords=10&view=All%20Artworks'
-  )
+export const loader: LoaderFunction = async () => {
+  const queryArtworks = gql`
+    query Artworks {
+      artworks {
+        id
+        title
+        slug
+        images {
+          url(transformation: { image: { resize: { width: 500 } } })
+        }
+        medium
+        size
+        date
+        price
+      }
+    }
+  `
 
-  return json(artworks?.data?.records)
+  const response = await graphcmsClient.query(queryArtworks).toPromise()
+  const { artworks } = response.data
+
+  return json(artworks)
 }
 
 export default function Artworks() {
@@ -15,23 +32,18 @@ export default function Artworks() {
   return (
     <div>
       <h1>Artworks</h1>
-      <hr />
-
       <div>
         {artworks.map((artwork: any) => {
-          const { title, images } = artwork.fields
-
           return (
             <div key={artwork.id}>
-              <h1>{title}</h1>
-              <img src={images[0]?.thumbnails?.large?.url} alt={title} />
+              <h1>{artwork.title}</h1>
+              {artwork.images[0]?.url && (
+                <img src={artwork.images[0].url} alt={artwork.title} />
+              )}
             </div>
           )
         })}
       </div>
-
-      <hr />
-      <pre>{JSON.stringify(artworks, null, 2)}</pre>
     </div>
   )
 }
