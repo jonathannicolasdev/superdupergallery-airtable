@@ -2,17 +2,16 @@ import { parseISO } from 'date-fns'
 import { styled } from '~/stitches'
 
 import { Date, RemixLink } from '~/components'
+import { Link } from 'remix'
 
 import { ArtworkContent, ArtistContent } from '~/types'
 import { FunctionComponent } from 'react'
 
 type ArtworkListProps = {
-  artist: ArtistContent
   artworks: any[]
 }
 
 type ArtworkItemProps = {
-  artist: ArtistContent
   artwork: any
 }
 
@@ -52,7 +51,7 @@ const ArtworkTitle = styled('h3', {
   fontSize: '1.5rem',
 })
 
-const ArtworkItemLinkButton = styled('a', {
+const ArtworkItemLinkButton = styled(Link, {
   cursor: 'pointer',
   color: 'white',
   border: '2px solid white',
@@ -77,43 +76,42 @@ const ArtistAnchor = styled('a', {
 })
 
 export const ArtworkList: FunctionComponent<ArtworkListProps> = ({
-  artist,
   artworks,
 }) => {
   return (
     <ArtworkListContainer>
       <ArtworkCollection>
-        {/* <pre>{JSON.stringify(artworks, null, 2)}</pre> */}
         {artworks.map((artwork, index) => (
-          <ArtworkItem key={index} artist={artist} artwork={artwork} />
+          <ArtworkItem key={index} artwork={artwork} />
         ))}
       </ArtworkCollection>
     </ArtworkListContainer>
   )
 }
 
-export const ArtworkItem = ({ artist, artwork }: ArtworkItemProps) => {
+export const ArtworkItem = ({ artwork }: ArtworkItemProps) => {
+  console.log(artwork.images[0]?.url)
+
   return (
     <ArtworkItemContainer>
       <ArtworkItemSection>
-        <ArtworkItemImage
-          src={artwork.fields.images[0].url}
-          alt={artwork.title}
-        />
+        {artwork.images.map((image: any) => {
+          return <ArtworkItemImage src={image.url} alt={artwork.title} />
+        })}
       </ArtworkItemSection>
 
       <ArtworkItemSection>
-        <ArtworkTitle>{artwork.fields.title}</ArtworkTitle>
-        <RemixLink to={`/artists/${artist.username}`}>
-          <ArtistAnchor>{artist.name}</ArtistAnchor>
+        <ArtworkTitle>{artwork.title}</ArtworkTitle>
+        <RemixLink to={`/artists/${artwork.artist?.username}`}>
+          <ArtistAnchor>{artwork.artist?.name}</ArtistAnchor>
         </RemixLink>
-        <Date date={parseISO(artwork.fields.date)} />
+        <Date date={parseISO(artwork.date)} />
       </ArtworkItemSection>
 
       <ArtworkItemSection>
-        <RemixLink to={'/artworks/' + artwork.fields.slug}>
-          <ArtworkItemLinkButton>Details</ArtworkItemLinkButton>
-        </RemixLink>
+        <ArtworkItemLinkButton to={'/artworks/' + artwork.slug}>
+          Details
+        </ArtworkItemLinkButton>
       </ArtworkItemSection>
     </ArtworkItemContainer>
   )

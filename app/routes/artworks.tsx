@@ -1,6 +1,13 @@
 import { json, LoaderFunction, useLoaderData } from 'remix'
 import { gql } from '@urql/core'
 import { graphcmsClient } from '~/lib'
+import {
+  AnimatedHeading,
+  ArtworkList,
+  Center,
+  Hero,
+  Layout,
+} from '~/components'
 
 export const loader: LoaderFunction = async () => {
   const queryArtworks = gql`
@@ -16,6 +23,10 @@ export const loader: LoaderFunction = async () => {
         size
         date
         price
+        artist {
+          name
+          username
+        }
       }
     }
   `
@@ -30,20 +41,14 @@ export default function Artworks() {
   const artworks = useLoaderData()
 
   return (
-    <div>
-      <h1>Artworks</h1>
-      <div>
-        {artworks.map((artwork: any) => {
-          return (
-            <div key={artwork.id}>
-              <h1>{artwork.title}</h1>
-              {artwork.images[0]?.url && (
-                <img src={artwork.images[0].url} alt={artwork.title} />
-              )}
-            </div>
-          )
-        })}
-      </div>
-    </div>
+    <>
+      <Hero>
+        <AnimatedHeading sentence="Super Artworks for Your Eyes" />
+      </Hero>
+
+      <Center>
+        <ArtworkList artworks={artworks} />
+      </Center>
+    </>
   )
 }
