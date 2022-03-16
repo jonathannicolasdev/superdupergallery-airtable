@@ -1,17 +1,26 @@
 import { json, LoaderFunction, useLoaderData } from 'remix'
-import { Hero, AnimatedHeading, Center } from '~/components'
+import { Hero, AnimatedHeading, Center, ArtworkList } from '~/components'
 import { airtableFetch } from '~/lib'
 import { ArtistContent, ArtworkContent } from '~/types'
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const artists = await airtableFetch(
-    '/Artists?maxRecords=10&view=All%20Artists'
-  )
-  const artist = artists?.data?.records.find((artist: any) => {
+  const allArtists = await airtableFetch('/Artists?view=All%20Artists')
+  const allArtworks = await airtableFetch('/Artworks?view=All%20Artworks')
+
+  const artist = allArtists?.data?.records.find((artist: any) => {
     if (params.username === artist.fields.username) {
       return artist
     }
   })
+
+  const artworksByArtist = artist?.fields?.artworks.map((id: any) => {
+    return allArtworks.data.records.filter((artwork: any) => {
+      if (id === artwork.id) {
+        return artwork
+      }
+    })
+  })
+
   const { name, username } = artist.fields
 
   return json({
@@ -19,14 +28,14 @@ export const loader: LoaderFunction = async ({ params }) => {
       name,
       username,
     },
-    artworks: [],
+    artworks: artworksByArtist.flat(),
   })
 }
 
 export default function ArtistUsernamePage() {
-  const { artist } = useLoaderData()
+  const { artist, artworks } = useLoaderData()
 
-  const url = `/artists/${artist.username}`
+  const url = `/allArtists/${artist.username}`
   const title = artist.name
 
   return (
@@ -35,7 +44,9 @@ export default function ArtistUsernamePage() {
         <AnimatedHeading sentence={artist.name} />
       </Hero>
 
-      <Center>{/* <ArtworkList artworks={artworks} /> */}</Center>
+      <Center>
+        <ArtworkList artist={artist} artworks={artworks} />
+      </Center>
     </div>
   )
 }
