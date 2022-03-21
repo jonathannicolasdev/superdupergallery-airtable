@@ -1,7 +1,7 @@
 import { parseISO } from 'date-fns'
 import { styled } from '~/stitches'
 
-import { Date, RemixLink } from '~/components'
+import { ArtworkDate, RemixLink } from '~/components'
 import { Link } from 'remix'
 
 import { ArtworkContent, ArtistContent } from '~/types'
@@ -95,9 +95,7 @@ export const ArtworkItem = ({ artwork }: ArtworkItemProps) => {
   return (
     <ArtworkItemContainer>
       <ArtworkItemSection>
-        {artwork.images.map((image: any) => {
-          return <ArtworkItemImage src={image.url} alt={artwork.title} />
-        })}
+        <ArtworkItemImage src={artwork.images[0].url} alt={artwork.title} />
       </ArtworkItemSection>
 
       <ArtworkItemSection>
@@ -105,7 +103,7 @@ export const ArtworkItem = ({ artwork }: ArtworkItemProps) => {
         <RemixLink to={`/artists/${artwork.artist?.username}`}>
           <ArtistAnchor>{artwork.artist?.name}</ArtistAnchor>
         </RemixLink>
-        <Date date={parseISO(artwork.date)} />
+        <ArtworkDate date={parseISO(artwork.date)} />
       </ArtworkItemSection>
 
       <ArtworkItemSection>

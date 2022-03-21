@@ -1,6 +1,7 @@
 import { gql } from '@urql/core'
 import { FunctionComponent } from 'react'
 import { json, LoaderFunction, useLoaderData, useParams } from 'remix'
+import { Artwork } from '~/components'
 import { graphcmsClient } from '~/lib'
 
 interface ArtworkSlugProps {}
@@ -44,7 +45,7 @@ const ArtworkSlug: FunctionComponent<ArtworkSlugProps> = () => {
 
   return (
     <div>
-      <pre>{JSON.stringify(artwork, null, 2)}</pre>
+      <Artwork artwork={artwork} />
     </div>
   )
 }

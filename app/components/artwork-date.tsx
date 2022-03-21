@@ -1,15 +1,15 @@
 import { format, formatISO } from 'date-fns'
 import { styled } from '~/stitches'
 
-type Props = {
+type ArtworkDateProps = {
   date: Date
 }
 
-export const Date = ({ date }: Props) => {
-  const DateTimeText = styled('span', {
-    color: 'white',
-  })
+const DateTimeText = styled('span', {
+  color: 'white',
+})
 
+export const ArtworkDate = ({ date }: ArtworkDateProps) => {
   return (
     <time dateTime={formatISO(date)}>
       <DateTimeText>{format(date, 'LLLL d, yyyy')}</DateTimeText>
