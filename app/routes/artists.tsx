@@ -1,22 +1,24 @@
 import { json, useLoaderData } from 'remix'
-import { airtableFetch } from '~/lib'
+import { airtableFetch, graphcmsClient } from '~/lib'
 import { ArtistContent } from '~/types'
 import { Hero, AnimatedHeading, ArtistList, Center } from '~/components'
+import { gql } from '@urql/core'
 
 export async function loader() {
-  const artists = await airtableFetch(
-    '/Artists?maxRecords=10&view=All%20Artists'
-  )
-
-  const transformedArtists = artists?.data?.records.map((artist: any) => {
-    const { name, username } = artist.fields
-    return {
-      name,
-      username,
+  const queryArtists = gql`
+    query Artists {
+      artists {
+        id
+        name
+        username
+      }
     }
-  })
+  `
 
-  return json(transformedArtists)
+  const response = await graphcmsClient.query(queryArtists).toPromise()
+  const { artists } = response.data
+
+  return json(artists)
 }
 
 export default function Artists() {
