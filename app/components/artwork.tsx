@@ -9,6 +9,7 @@ import {
   Section,
   ArtistTag,
   ArtworkDate,
+  RemixLink,
 } from '~/components'
 
 import { styled } from '~/stitches'
@@ -46,7 +47,13 @@ export const Artwork: FunctionComponent<ArtworkProps> = ({ artwork }) => {
         <Article>
           <Section>
             <ArticleHeading>{artwork.title}</ArticleHeading>
-            <ArtistTag>{artwork.artist?.name}</ArtistTag>
+            {artwork?.artists?.map((artist) => {
+              return (
+                <RemixLink key={artist.id} to={`/artists/${artist.username}`}>
+                  <ArtistTag>{artist?.name}</ArtistTag>
+                </RemixLink>
+              )
+            })}
             <ArtworkDate date={parseISO(String(artwork.date))} />
           </Section>
         </Article>

@@ -22,7 +22,8 @@ export const loader: LoaderFunction = async ({ params }) => {
         size
         date
         price
-        artist {
+        artists {
+          id
           name
           username
         }
@@ -35,13 +36,11 @@ export const loader: LoaderFunction = async ({ params }) => {
     .toPromise()
   const { artwork } = response.data
 
-  return json({
-    artwork,
-  })
+  return json(artwork)
 }
 
 const ArtworkSlug: FunctionComponent<ArtworkSlugProps> = () => {
-  const { artwork } = useLoaderData()
+  const artwork = useLoaderData()
 
   return (
     <div>
