@@ -23,10 +23,10 @@ const ExhibitionListContainer = styled('div', {})
 
 const ExhibitionItemContainer = styled('article', {
   display: 'flex',
+  flexDirection: 'column',
   margin: '2em 0',
   fontSize: '1.2rem',
   maxWidth: '1000px',
-  flexDirection: 'column',
   h3: {
     fontSize: '2rem',
   },
@@ -40,6 +40,7 @@ const ExhibitionItemContainer = styled('article', {
   '@desktop': {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
 })
 
@@ -52,6 +53,10 @@ const ExhibitionItemSection = styled('section', {
   '@desktop': {
     margin: '0 1em',
   },
+})
+
+const ExhibitionDescription = styled('p', {
+  maxWidth: '42ch',
 })
 
 const ExhibitionItemLinkButton = styled('a', {
@@ -96,7 +101,7 @@ export const ExhibitionItem: FunctionComponent<ExhibitionItemProps> = ({
       <ExhibitionItemSection>
         <h3>{exhibition.name}</h3>
         <ArtworkDate date={parseISO(String(exhibition.date))} />
-        <p>{exhibition.description}</p>
+        <ExhibitionDescription>{exhibition.description}</ExhibitionDescription>
         <div>
           <RemixLink to={'/exhibitions/' + exhibition.slug}>
             <ExhibitionItemLinkButton>Enter</ExhibitionItemLinkButton>

@@ -24,8 +24,8 @@ export type ExhibitionContent = {
   readonly slug?: string
   readonly name?: string
   readonly date?: string
-  readonly coverImage?: ImageContent
   readonly description?: string
+  readonly coverImage?: ImageContent
   readonly artists?: ArtistContent[]
   readonly artworks?: ArtworkContent[]
 }

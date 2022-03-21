@@ -17,9 +17,10 @@ export async function loader() {
         id
         slug
         name
+        description
         date
         coverImage {
-          url(transformation: { image: { resize: { width: 500 } } })
+          url(transformation: { image: { resize: { width: 600 } } })
         }
         artists {
           id
@@ -48,7 +49,7 @@ export default function Exhibitions() {
   const exhibitions = useLoaderData()
 
   return (
-    <Layout>
+    <div>
       <Hero>
         <AnimatedHeading sentence="Super Exciting Exhibitions" />
       </Hero>
@@ -56,6 +57,6 @@ export default function Exhibitions() {
       <Center>
         <ExhibitionList exhibitions={exhibitions} />
       </Center>
-    </Layout>
+    </div>
   )
 }
