@@ -18,3 +18,14 @@ export type ArtworkContent = {
   readonly images?: ImageContent[]
   readonly artists?: ArtistContent[]
 }
+
+export type ExhibitionContent = {
+  readonly id?: string
+  readonly slug?: string
+  readonly title?: string
+  readonly date?: string
+  readonly coverImage?: ImageContent
+  readonly description?: string
+  readonly artists?: ArtistContent[]
+  readonly artworks?: ArtworkContent[]
+}
