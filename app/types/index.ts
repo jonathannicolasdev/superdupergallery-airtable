@@ -22,7 +22,7 @@ export type ArtworkContent = {
 export type ExhibitionContent = {
   readonly id?: string
   readonly slug?: string
-  readonly title?: string
+  readonly name?: string
   readonly date?: string
   readonly coverImage?: ImageContent
   readonly description?: string

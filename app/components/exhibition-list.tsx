@@ -6,15 +6,11 @@ import { RemixLink, ArtworkDate } from '~/components'
 import { ExhibitionContent } from '~/types'
 import { FunctionComponent } from 'react'
 
-type ExhibitionListProps = {
+interface ExhibitionListProps {
   exhibitions: ExhibitionContent[]
-  pagination: {
-    current: number
-    pages: number
-  }
 }
 
-type ExhibitionItemProps = {
+interface ExhibitionItemProps {
   exhibition: ExhibitionContent
 }
 
@@ -47,6 +43,30 @@ const ExhibitionItemContainer = styled('article', {
   },
 })
 
+const ExhibitionItemImage = styled('img', {
+  width: '100%',
+})
+
+const ExhibitionItemSection = styled('section', {
+  maxWidth: '600px',
+  '@desktop': {
+    margin: '0 1em',
+  },
+})
+
+const ExhibitionItemLinkButton = styled('a', {
+  cursor: 'pointer',
+  color: 'white',
+  border: '2px solid white',
+  padding: '0.5em 1em',
+  transition: 'all 0.25s ease-in-out',
+  textDecoration: 'none',
+  '&:hover': {
+    backgroundColor: 'white',
+    color: 'black',
+  },
+})
+
 export const ExhibitionList: FunctionComponent<ExhibitionListProps> = ({
   exhibitions,
 }) => {
@@ -64,45 +84,21 @@ export const ExhibitionList: FunctionComponent<ExhibitionListProps> = ({
 export const ExhibitionItem: FunctionComponent<ExhibitionItemProps> = ({
   exhibition,
 }) => {
-  const ExhibitionItemImage = styled('img', {
-    width: '100%',
-  })
-
-  const ExhibitionItemSection = styled('section', {
-    maxWidth: '600px',
-    '@desktop': {
-      margin: '0 1em',
-    },
-  })
-
-  const ExhibitionItemLinkButton = styled('a', {
-    cursor: 'pointer',
-    color: 'white',
-    border: '2px solid white',
-    padding: '0.5em 1em',
-    transition: 'all 0.25s ease-in-out',
-    textDecoration: 'none',
-    '&:hover': {
-      backgroundColor: 'white',
-      color: 'black',
-    },
-  })
-
   return (
     <ExhibitionItemContainer>
       <ExhibitionItemSection>
         <ExhibitionItemImage
           src={exhibition.coverImage?.url as string}
-          alt={exhibition.title}
+          alt={exhibition.name}
         />
       </ExhibitionItemSection>
 
       <ExhibitionItemSection>
-        <h3>{exhibition.title}</h3>
+        <h3>{exhibition.name}</h3>
         <ArtworkDate date={parseISO(String(exhibition.date))} />
         <p>{exhibition.description}</p>
         <div>
-          <RemixLink to={'/exhibitions/' + exhibition.slug} passHref>
+          <RemixLink to={'/exhibitions/' + exhibition.slug}>
             <ExhibitionItemLinkButton>Enter</ExhibitionItemLinkButton>
           </RemixLink>
         </div>

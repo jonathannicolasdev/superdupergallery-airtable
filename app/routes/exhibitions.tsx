@@ -1,6 +1,12 @@
 import { gql } from '@urql/core'
 import { json, Link, useLoaderData } from 'remix'
-import { AnimatedHeading, Center, Hero, Layout } from '~/components'
+import {
+  AnimatedHeading,
+  Center,
+  ExhibitionList,
+  Hero,
+  Layout,
+} from '~/components'
 
 import { graphcmsClient } from '~/lib'
 
@@ -11,6 +17,10 @@ export async function loader() {
         id
         slug
         name
+        date
+        coverImage {
+          url(transformation: { image: { resize: { width: 500 } } })
+        }
         artists {
           id
           username
@@ -21,7 +31,7 @@ export async function loader() {
           slug
           title
           images {
-            url
+            url(transformation: { image: { resize: { width: 500 } } })
           }
         }
       }
@@ -44,8 +54,7 @@ export default function Exhibitions() {
       </Hero>
 
       <Center>
-        <pre>{JSON.stringify(exhibitions, null, 2)}</pre>
-        {/* <ExhibitionList exhibitions={exhibitions} /> */}
+        <ExhibitionList exhibitions={exhibitions} />
       </Center>
     </Layout>
   )
