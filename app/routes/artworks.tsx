@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async () => {
         size
         date
         price
-        artist {
+        artists {
           name
           username
         }

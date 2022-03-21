@@ -90,8 +90,6 @@ export const ArtworkList: FunctionComponent<ArtworkListProps> = ({
 }
 
 export const ArtworkItem = ({ artwork }: ArtworkItemProps) => {
-  console.log(artwork.images[0]?.url)
-
   return (
     <ArtworkItemContainer>
       <ArtworkItemSection>
@@ -100,8 +98,8 @@ export const ArtworkItem = ({ artwork }: ArtworkItemProps) => {
 
       <ArtworkItemSection>
         <ArtworkTitle>{artwork.title}</ArtworkTitle>
-        <RemixLink to={`/artists/${artwork.artist?.username}`}>
-          <ArtistAnchor>{artwork.artist?.name}</ArtistAnchor>
+        <RemixLink to={`/artists/${artwork?.artists[0]?.username}`}>
+          <ArtistAnchor>{artwork?.artists[0]?.name}</ArtistAnchor>
         </RemixLink>
         <ArtworkDate date={parseISO(artwork.date)} />
       </ArtworkItemSection>
