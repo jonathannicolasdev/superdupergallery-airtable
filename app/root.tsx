@@ -76,6 +76,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
+        <script async src="https://cdn.splitbee.io/sb.js"></script>
       </body>
     </html>
   );

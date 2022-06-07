@@ -1,5 +1,5 @@
-import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
-import { airtableFetch } from '~/lib'
+import { json, LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import { airtableFetch } from "~/lib";
 import {
   Hero,
   AnimatedHeadingHome,
@@ -11,29 +11,29 @@ import {
   MapAnchor,
   MapImage,
   FeaturedArtworks,
-} from '~/components'
+} from "~/components";
 
 export const loader: LoaderFunction = async () => {
   const artworks = await airtableFetch(
-    '/Artworks?maxRecords=3&view=All%20Artworks'
-  )
+    "/Artworks?maxRecords=3&view=All%20Artworks"
+  );
 
   const transformedArtworks = artworks?.data?.records.map((artwork: any) => {
-    const { title, images } = artwork.fields
+    const { title, images } = artwork.fields;
 
     return {
       title: title,
       url: images[0]?.thumbnails?.large?.url,
-    }
-  })
+    };
+  });
 
-  console.log(transformedArtworks)
+  // console.log(transformedArtworks)
 
-  return json(transformedArtworks)
-}
+  return json(transformedArtworks);
+};
 
 export default function HomePage() {
-  const artworks = useLoaderData()
+  const artworks = useLoaderData();
 
   return (
     <div>
@@ -120,7 +120,7 @@ export default function HomePage() {
             </p>
             <p>
               Last but not the least, it is a haven and playground for artists
-              who wish to experiment and even play.{' '}
+              who wish to experiment and even play.{" "}
             </p>
           </Section>
         </Article>
@@ -134,5 +134,5 @@ export default function HomePage() {
         </MapAnchor>
       </Center>
     </div>
-  )
+  );
 }

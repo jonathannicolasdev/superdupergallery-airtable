@@ -1,12 +1,12 @@
-import { gql } from '@urql/core'
-import { json, LoaderFunction, useLoaderData } from 'remix'
-import { Hero, AnimatedHeading, Center, ArtworkList } from '~/components'
-import { airtableFetch, graphcmsClient } from '~/lib'
-import { ArtistContent, ArtworkContent } from '~/types'
+import { gql } from "@urql/core";
+import { json, LoaderFunction, useLoaderData } from "remix";
+import { Hero, AnimatedHeading, Center, ArtworkList } from "~/components";
+import { airtableFetch, graphcmsClient } from "~/lib";
+import { ArtistContent, ArtworkContent } from "~/types";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { artistUsername } = params
-  console.log({ artistUsername })
+  const { artistUsername } = params;
+  // console.log({ artistUsername })
 
   const queryArtistByUsername = gql`
     query ArtistByUsername($username: String!) {
@@ -30,18 +30,18 @@ export const loader: LoaderFunction = async ({ params }) => {
         }
       }
     }
-  `
+  `;
 
   const response = await graphcmsClient
     .query(queryArtistByUsername, { username: artistUsername })
-    .toPromise()
-  const { artist } = response.data
+    .toPromise();
+  const { artist } = response.data;
 
-  return json(artist)
-}
+  return json(artist);
+};
 
 export default function ArtistUsernamePage() {
-  const artist = useLoaderData()
+  const artist = useLoaderData();
 
   return (
     <div>
@@ -53,5 +53,5 @@ export default function ArtistUsernamePage() {
         <ArtworkList artworks={artist.artworks} />
       </Center>
     </div>
-  )
+  );
 }
